@@ -1,0 +1,8 @@
+# Doom/Emacs local state and build artifacts
+.local/
+eln-cache/
+transient/
+var/
+*.elc
+*~
+\#*\#
