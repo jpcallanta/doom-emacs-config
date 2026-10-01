@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 20 :weight 'normal)
-     doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
+(setq doom-font (font-spec :family "JetBrainsMono NF" :size 20 :weight 'normal)
+     doom-variable-pitch-font (font-spec :family "JetBrainsMono NF" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -91,6 +91,16 @@
 ;; Disable the prompt when active sub-processes (terminals, LSP, etc.) are running
 (setq confirm-kill-processes nil)
 
+;; `emacs -nw' on Windows sets the terminal coding system from the console's
+;; OEM code page (e.g. cp437), so Nerd Font glyphs can't be encoded and Emacs
+;; falls back to displaying them as hex codes (see `glyphless-char-display').
+;; Switch the console to UTF-8 so Windows Terminal renders the real icons.
+(when (and (eq system-type 'windows-nt)
+           (not (display-graphic-p))
+           (fboundp 'w32-set-console-output-codepage))
+  (w32-set-console-output-codepage 65001)
+  (set-terminal-coding-system 'utf-8))
+
 (defun my/toggle-markdown-view ()
   "Toggle between markdown edit mode and rendered view mode in the same buffer."
   (interactive)
@@ -105,3 +115,12 @@
 ;; Doom's `:lang markdown' module opens README(.md) in GFM mode; prefer
 ;; `md-mode' for README.md so it matches the rest of the .md files.
 (add-to-list 'auto-mode-alist '("/README\\.md\\'" . md-mode))
+
+;; Apheleia ships no markdown formatter by default; opt in to prettier.
+(after! apheleia
+  (add-to-list 'apheleia-mode-alist '(markdown-mode . prettier-markdown))
+  (add-to-list 'apheleia-mode-alist '(gfm-mode . prettier-markdown))
+  (add-to-list 'apheleia-mode-alist '(md-mode . prettier-markdown)))
+
+;; Show fill column indactor on startup
+(global-display-fill-column-indicator-mode +1)
