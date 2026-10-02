@@ -124,3 +124,14 @@
 
 ;; Show fill column indactor on startup
 (global-display-fill-column-indicator-mode +1)
+
+;; Doom's whitespace module turns on `whitespace-mode' from
+;; `after-change-major-mode-hook' (not `prog-mode-hook'), so it has to be
+;; switched off from that same hook, appended after Doom's.
+(defun my/odin-disable-whitespace-h ()
+  "Disable `whitespace-mode' in Odin buffers."
+  (when (and (memq major-mode '(odin-mode odin-ts-mode))
+             (bound-and-true-p whitespace-mode))
+    (whitespace-mode -1)))
+
+(add-hook 'after-change-major-mode-hook #'my/odin-disable-whitespace-h :append)
