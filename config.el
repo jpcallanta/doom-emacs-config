@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "JetBrainsMono NF" :size 20 :weight 'normal)
-     doom-variable-pitch-font (font-spec :family "JetBrainsMono NF" :size 20))
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono NF" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -135,3 +135,7 @@
     (whitespace-mode -1)))
 
 (add-hook 'after-change-major-mode-hook #'my/odin-disable-whitespace-h :append)
+
+;; Launch eww to right pane
+(after! eww
+  (set-popup-rule! "^\\*eww" :side 'right :width 0.5))
