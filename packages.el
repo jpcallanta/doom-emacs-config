@@ -55,3 +55,6 @@
 (package! md-mode
   :recipe (:host github :repo "yibie/md-mode")
   :pin "19d9635f44e86160af474edcf9ff6e497dd72814")
+
+;; Catppuccin
+(package! catppuccin-theme)
