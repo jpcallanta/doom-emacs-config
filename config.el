@@ -82,8 +82,8 @@
 ;; they are implemented.
 ;;
 ;; Set background opacity to 90% (values 0 - 100)
-(set-frame-parameter nil 'alpha-background 90)
-(add-to-list 'default-frame-alist '(alpha-background . 90))
+(set-frame-parameter nil 'alpha-background 95)
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 
 ;; Disable the prompt when closing Emacs
 (setq confirm-kill-emacs nil)
