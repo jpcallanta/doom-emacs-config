@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrainsMono NF" :size 20 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono NF" :size 20))
+(setq doom-font (font-spec :family "DroidSansM Nerd Font" :size 20 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "DroidSansM Nerd Font" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -33,7 +33,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'catppuccin)
-(setq doom-theme 'doom-one)
+(setq catppuccin-flavor 'mocha)
 ;; Specify both a dark and light theme, like so and Doom will choose which one
 ;; to load based on your system light/dark setting:
 ;;
@@ -140,3 +140,9 @@
 ;; Launch eww to right pane
 (after! eww
   (set-popup-rule! "^\\*eww" :side 'right :width 0.5))
+
+;; Reload buffers when they've changed externally
+(global-auto-revert-mode 1)
+
+;; Automatically refresh Dired buffers when directories change
+(setq global-auto-revert-non-file-buffers t)
